@@ -5,11 +5,7 @@ import { TabBar } from "./components/layout/TabBar";
 import { GameTab } from "./components/game/GameTab";
 import { PlayersTab } from "./components/players/PlayersTab";
 import { PromptsTab } from "./components/prompts/PromptsTab";
-
-// ForfeitsTab lands here once built — same pattern as the others.
-function ComingSoon({ name }) {
-  return <p style={{ color: "var(--muted)", textAlign: "center" }}>{name} tab is next.</p>;
-}
+import { ForfeitsTab } from "./Components/Forfeits/ForfeitsTab"
 
 export function App() {
   const [tab, setTab] = useState("game");
@@ -23,7 +19,7 @@ export function App() {
           {tab === "game" && <GameTab />}
           {tab === "players" && <PlayersTab />}
           {tab === "prompts" && <PromptsTab />}
-          {tab === "forfeits" && <ComingSoon name="Forfeits" />}
+          {tab === "forfeits" && <ForfeitsTab />}
         </div>
       </div>
     </GameProvider>

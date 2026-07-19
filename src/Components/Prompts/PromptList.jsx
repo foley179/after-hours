@@ -12,12 +12,12 @@ export function PromptList({ spiceLevel }) {
         <div key={p.id} className="prompt-row">
           <span className={"badge " + p.type}>{p.type}</span>
           <span className="prompt-text">{p.text}</span>
-          {p.partnered && <span className="badge partner">2P</span>}
           {p.duration && (
             <span className="badge timer">
               <Timer size={11} /> {p.duration}s
             </span>
           )}
+          {p.partnered && <span className="badge partner">2P</span>}
           <button className="btn-icon subtle" onClick={() => dispatch({ type: "DELETE_PROMPT", id: p.id })}>
             <Trash2 size={14} />
           </button>

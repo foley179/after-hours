@@ -1,17 +1,9 @@
 import React from "react";
-import { Flame, RefreshCw } from "lucide-react";
-import { useGame } from "../../context/GameContext";
+import { Flame } from "lucide-react";
+import { ResetButton } from "../shared/ResetButton";
+import { RulesButton } from "../rules/RulesButton";
 
-function handleReset(dispatch) {
-  const confirmed = window.confirm(
-    "Start a brand new game? This clears all players, connections, custom prompts, and forfeits back to the defaults."
-  );
-  if (confirmed) dispatch({ type: "RESET" });
-}
-
-export function Header() {
-  const { dispatch } = useGame();
-
+export function Header({ onOpenRules }) {
   return (
     <div className="header">
       <div className="header-inner">
@@ -21,9 +13,14 @@ export function Header() {
           <div className="subtitle">spin · dare · undress</div>
         </div>
       </div>
-      <button className="reset-btn" onClick={() => handleReset(dispatch)}>
-        <RefreshCw size={13} /> New game
-      </button>
+      <div className="header-actions">
+        <RulesButton onOpen={onOpenRules} />
+        <ResetButton
+          label="New game"
+          confirmMessage="Start a new game? This clears players, connections, and the round history. Your saved prompts and forfeits are kept."
+          actionType="RESET_PLAYERS"
+        />
+      </div>
     </div>
   );
 }

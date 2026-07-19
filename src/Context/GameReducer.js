@@ -1,35 +1,29 @@
 import { uid, pairKey } from "../utils/pairs";
-import { STARTER_PROMPTS } from "../data/starterPrompts";
-import { STARTER_FORFEITS } from "../data/starterForfeits";
+import { createStarterPrompts } from "../data/starterPrompts";
+import { createStarterForfeits } from "../data/starterForfeits";
 
 /**
  * Note on design: this reducer never generates randomness itself.
  * Anything that needs a random pick (which player, which prompt, which forfeit)
  * is decided by the caller (see hooks/useSpin.js) and passed in as a payload.
  * That keeps the reducer a pure function of (state, action) -> state,
- * which makes it trivial to unit test and to later swap for a synced/remote store.
+ * which makes it trivial to reason about and to later swap for a synced/remote store.
  */
 
 /**
- * Builds a fresh default game state. Used both for the very first load
- * (when there's nothing in storage yet) and for RESET, so a reset gives
- * genuinely new player/prompt ids rather than replaying the same ones
- * from when the app first started.
+ * Builds a fresh default game state. Used only for the very first load,
+ * when there's nothing in storage yet. Players start empty — there's no
+ * "default" group of people, so it'd just be something to delete every time.
  */
 export function createInitialState() {
   return {
-    players: [
-      { id: uid(), name: "Dan" },
-      { id: uid(), name: "Emma" },
-      { id: uid(), name: "Ryan" },
-      { id: uid(), name: "Laura" },
-    ],
+    players: [],
     excluded: [], // array of pairKey strings — pairs NOT comfortable being matched together
-    prompts: STARTER_PROMPTS,
-    forfeits: STARTER_FORFEITS,
+    prompts: createStarterPrompts(),
+    forfeits: createStarterForfeits(),
     spiceMode: "mild", // 'mild' | 'medium' | 'hot' | 'wild'
     typeFilter: "any", // 'any' | 'truth' | 'dare'
-    round: null, // { a, b, prompt, spice, phase: 'revealed' | 'forfeit', forfeit? }
+    round: null, // { id, a, b, prompt, spice, phase: 'revealed' | 'forfeit', forfeit? }
     history: [], // most recent rounds, newest first
     notice: null, // transient message shown in the Play tab (e.g. "no prompts for that combo")
   };
@@ -40,7 +34,7 @@ export function gameReducer(state, action) {
     case "ADD_PLAYER": {
       const name = action.name.trim();
 
-      if (!name) 
+      if (!name)
         return state;
 
       return { ...state, players: [...state.players, { id: uid(), name }] };
@@ -129,12 +123,30 @@ export function gameReducer(state, action) {
         return state;
 
       const entry = { ...state.round, result: "forfeit", id: uid() };
-
+      
       return { ...state, history: [entry, ...state.history].slice(0, 6), round: null };
     }
 
-    case "RESET":
-      return createInitialState();
+    // "New game" — clears players/connections and the in-progress round/history,
+    // but deliberately leaves prompts and forfeits alone. Those are a library
+    // people build up over time; a fresh game shouldn't wipe that out.
+    case "RESET_PLAYERS":
+      return {
+        ...state,
+        players: [],
+        excluded: [],
+        round: null,
+        history: [],
+        notice: null,
+        spiceMode: "mild",
+        typeFilter: "any",
+      };
+
+    case "RESET_PROMPTS":
+      return { ...state, prompts: createStarterPrompts() };
+
+    case "RESET_FORFEITS":
+      return { ...state, forfeits: createStarterForfeits() };
 
     default:
       return state;

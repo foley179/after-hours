@@ -31,3 +31,25 @@ export function clearStoredState() {
     console.error("Failed to clear saved game state:", err);
   }
 }
+
+// Kept as its own key, separate from the game-state blob above, so that
+// resetting players/prompts/forfeits never has a side effect of making the
+// rules popup reappear — the two are unrelated concerns.
+const RULES_SEEN_KEY = "after-hours:rules-seen";
+ 
+export function hasSeenRules() {
+  try {
+    return localStorage.getItem(RULES_SEEN_KEY) === "true";
+  } catch (err) {
+    console.error("Failed to read rules-seen flag:", err);
+    return false;
+  }
+}
+ 
+export function markRulesSeen() {
+  try {
+    localStorage.setItem(RULES_SEEN_KEY, "true");
+  } catch (err) {
+    console.error("Failed to save rules-seen flag:", err);
+  }
+}

@@ -4,30 +4,19 @@ import { useGame } from "../../context/GameContext";
 
 export function ForfeitList() {
   const { state, dispatch } = useGame();
+  const { forfeits } = state;
 
   return (
-    <div className="forfeit-list">
-      {state.forfeits.map((forfeit) => (
-        <div key={forfeit.id} className="forfeit-row">
-          <span className="forfeit-text">{forfeit.text}</span>
-
-          <button
-            className="btn-icon subtle"
-            onClick={() =>
-              dispatch({
-                type: "DELETE_FORFEIT",
-                id: forfeit.id,
-              })
-            }
-          >
-            <Trash2 size={15} />
+    <div className="prompt-list">
+      {forfeits.map((f) => (
+        <div key={f.id} className="prompt-row">
+          <span className="prompt-text">{f.text}</span>
+          <button className="btn-icon subtle" onClick={() => dispatch({ type: "DELETE_FORFEIT", id: f.id })}>
+            <Trash2 size={14} />
           </button>
         </div>
       ))}
-
-      {state.forfeits.length === 0 && (
-        <p className="empty">No forfeits yet.</p>
-      )}
+      {forfeits.length === 0 && <p className="empty">No forfeits saved.</p>}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import { TabBar } from "./components/layout/TabBar";
 import { GameTab } from "./components/game/GameTab";
 import { PlayersTab } from "./components/players/PlayersTab";
 import { PromptsTab } from "./components/prompts/PromptsTab";
-import { ForfeitsTab } from "./Components/Forfeits/ForfeitsTab"
+import { ForfeitsTab } from "./components/forfeits/ForfeitsTab";
 
 export function App() {
   const [tab, setTab] = useState("game");

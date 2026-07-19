@@ -7,30 +7,20 @@ export function ForfeitEditor() {
   const [text, setText] = useState("");
 
   function handleAdd() {
-    if (!text.trim()) return;
-
-    dispatch({
-      type: "ADD_FORFEIT",
-      forfeit: {
-        text,
-      },
-    });
-
+    dispatch({ type: "ADD_FORFEIT", text });
     setText("");
   }
 
   return (
-    <div className="forfeit-editor">
+    <div className="add-row" style={{ marginTop: 16 }}>
       <input
-        type="text"
-        placeholder="Add a forfeit"
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => e.key === "Enter" && handleAdd()}
+        placeholder="Add a forfeit"
       />
-
-      <button className="btn-icon add-btn" onClick={handleAdd}>
-        <Plus size={18} />
+      <button className="btn-icon" onClick={() => handleAdd()}>
+        <Plus size={16} />
       </button>
     </div>
   );

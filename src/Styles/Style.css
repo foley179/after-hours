@@ -143,13 +143,13 @@ textarea { width: 100%; min-height: 64px; resize: vertical; margin-bottom: 10px;
 .btn-icon.subtle { background: none; color: var(--muted); width: 30px; height: 30px; }
 .btn-icon.subtle:hover { color: var(--hot); }
 
-.player-list, .prompt-list, .pair-list, .forfeit-list { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
-.player-row, .prompt-row, .forfeit-row {
+.player-list, .prompt-list, .pair-list { display: flex; flex-direction: column; gap: 6px; margin-top: 10px; }
+.player-row, .prompt-row {
   display: flex; align-items: center; gap: 10px; background: var(--bg-panel);
   border: 1px solid var(--line); border-radius: 10px; padding: 10px 12px; font-size: 13px; color: var(--cream);
 }
-.player-row, .forfeit-row { justify-content: space-between; }
-.prompt-text, .forfeit-text { flex: 1; }
+.player-row { justify-content: space-between; }
+.prompt-text { flex: 1; }
 .badge { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; padding: 3px 7px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
 .badge.truth { color: var(--gold-bright); border-color: var(--gold-bright); }
 .badge.dare { color: var(--hot); border-color: var(--hot); }
@@ -163,10 +163,3 @@ textarea { width: 100%; min-height: 64px; resize: vertical; margin-bottom: 10px;
 .pair-row.off { opacity: 0.45; }
 
 .check-label { font-size: 12px; color: var(--muted); display: flex; align-items: center; gap: 6px; }
-
-.forfeit-row:hover { border-color: var(--gold); }
-.forfeit-editor { display: flex; align-items: center; gap: 10px; margin-top: 12px; }
-.forfeit-editor input { flex: 1; height: 40px; margin: 0; }
-.forfeit-editor .btn-icon { width: 40px; height: 40px; border-radius: 10px; flex-shrink: 0; }
-.forfeit-row .btn-icon.subtle { width: 32px; height: 32px; }
-.forfeit-row .btn-icon.subtle:hover { color: var(--hot); }

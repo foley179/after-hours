@@ -1,5 +1,5 @@
 import React from "react";
-import { Trash2 } from "lucide-react";
+import { Trash2, Timer } from "lucide-react";
 import { useGame } from "../../context/GameContext";
 
 export function PromptList({ spiceLevel }) {
@@ -13,6 +13,11 @@ export function PromptList({ spiceLevel }) {
           <span className={"badge " + p.type}>{p.type}</span>
           <span className="prompt-text">{p.text}</span>
           {p.partnered && <span className="badge partner">2P</span>}
+          {p.duration && (
+            <span className="badge timer">
+              <Timer size={11} /> {p.duration}s
+            </span>
+          )}
           <button className="btn-icon subtle" onClick={() => dispatch({ type: "DELETE_PROMPT", id: p.id })}>
             <Trash2 size={14} />
           </button>

@@ -25,8 +25,8 @@ export function GameTab() {
           </div>
         )}
 
-        {round && round.phase === "revealed" && <RevealCard round={round} />}
-        {round && round.phase === "forfeit" && <ForfeitCard round={round} />}
+        {round && round.phase === "revealed" && <RevealCard key={round.id} round={round} />}
+        {round && round.phase === "forfeit" && <ForfeitCard key={round.id} round={round} />}
       </div>
 
       <button className="spin-btn" onClick={() => spin()}>

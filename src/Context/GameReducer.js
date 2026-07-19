@@ -100,7 +100,7 @@ export function gameReducer(state, action) {
       return {
         ...state,
         notice: null,
-        round: { a: action.a, b: action.b, prompt: action.prompt, spice: action.spice, phase: "revealed" },
+        round: { id: uid(), a: action.a, b: action.b, prompt: action.prompt, spice: action.spice, phase: "revealed" },
       };
 
     case "SET_NOTICE":

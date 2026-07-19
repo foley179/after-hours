@@ -8,7 +8,7 @@ import { PromptsTab } from "./components/prompts/PromptsTab";
 import { ForfeitsTab } from "./components/forfeits/ForfeitsTab";
 
 export function App() {
-  const [tab, setTab] = useState("game");
+  const [tab, setTab] = useState("players"); // Land on player tab as this will need setting up most times
 
   return (
     <GameProvider>

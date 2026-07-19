@@ -2,10 +2,10 @@ import React from "react";
 import { Dices, Users, Sparkles, Wine } from "lucide-react";
 
 const TABS = [
-  { key: "game", label: "Play", Icon: Dices },
   { key: "players", label: "Players", Icon: Users },
   { key: "prompts", label: "Prompts", Icon: Sparkles },
   { key: "forfeits", label: "Forfeits", Icon: Wine },
+  { key: "game", label: "Play", Icon: Dices },
 ];
 
 export function TabBar({ activeTab, onSelect }) {

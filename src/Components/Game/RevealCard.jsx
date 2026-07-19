@@ -2,6 +2,7 @@ import React from "react";
 import { Check, X } from "lucide-react";
 import { useSpin } from "../../hooks/useSpin";
 import { SPICE_META } from "../../data/starterPrompts";
+import { RoundTimer } from "./RoundTimer";
 
 function fillText(text, partnerName) {
   return text.replace("{partner}", partnerName || "your partner");
@@ -21,6 +22,7 @@ export function RevealCard({ round }) {
         {round.b ? ` + ${round.b.name}` : ""}
       </div>
       <div className="reveal-text">{fillText(round.prompt.text, round.b?.name)}</div>
+      {round.prompt.duration && <RoundTimer seconds={round.prompt.duration} />}
       <div className="reveal-actions">
         <button className="btn btn-accept" onClick={() => accept()}>
           <Check size={16} /> Did it

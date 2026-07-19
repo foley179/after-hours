@@ -4,7 +4,7 @@ import { useGame } from "../../context/GameContext";
 import { SPICE_ORDER, SPICE_META } from "../../data/starterPrompts";
 
 function emptyDraft(spiceLevel) {
-  return { text: "", type: "dare", spice: spiceLevel, partnered: false };
+  return { text: "", type: "dare", spice: spiceLevel, partnered: false, duration: "" };
 }
 
 export function PromptEditor({ spiceLevel }) {
@@ -18,8 +18,12 @@ export function PromptEditor({ spiceLevel }) {
   }, [spiceLevel]);
 
   function handleAdd() {
-    if (!draft.text.trim()) return;
-    dispatch({ type: "ADD_PROMPT", prompt: draft });
+    if (!draft.text.trim()) 
+      return;
+
+    const duration = draft.duration === "" ? null : Math.max(1, parseInt(draft.duration, 10) || 0);
+    
+    dispatch({ type: "ADD_PROMPT", prompt: { ...draft, duration } });
     setDraft(emptyDraft(spiceLevel));
   }
 
@@ -53,6 +57,14 @@ export function PromptEditor({ spiceLevel }) {
           />
           needs a partner
         </label>
+        <input
+          className="duration-input"
+          type="number"
+          min="1"
+          placeholder="secs"
+          value={draft.duration}
+          onChange={(e) => setDraft((d) => ({ ...d, duration: e.target.value }))}
+        />
         <button className="btn-icon" onClick={() => handleAdd()}>
           <Plus size={16} />
         </button>
